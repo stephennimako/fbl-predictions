@@ -37,7 +37,7 @@ module Fbl
     end
 
     get '/auth/login' do
-      erb :login
+      slim :login
     end
 
     post '/auth/login' do

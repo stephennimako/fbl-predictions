@@ -1,6 +1,3 @@
-#can this be required in gemfile
-require 'sinatra/base'
-#
 $LOAD_PATH.unshift(__dir__)
 
 require 'app/authentication'

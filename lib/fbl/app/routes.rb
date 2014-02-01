@@ -4,7 +4,7 @@ module Fbl
     get '/' do
       env['warden'].authenticate!
       @current_user = env['warden'].user
-      erb :predictions
+      slim :predictions
     end
   end
 end
