@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html class="no-js">
+<head>
+  <title>Fixtures</title>
+</head>
+<body>
+
+<h2 class="noborder">Season: 2014-2015</h2>
+
+<div class="fixturelist">
+
+  <% fixtures_by_date.keys.each do |date| %>
+      <table class="contentTable">
+        <tr>
+          <th colspan="6"><%= date %> <span class="masthead"
+                                            title="Barclays Premier League"></span></th>
+        </tr>
+
+        <% fixtures_by_date[date].each do |fixture| %>
+
+            <tr class="">
+
+              <td class="calendar">
+
+                <a href="/content/premierleague-ical/matchevent.html/695020.ics">
+                  <img class="calIcon" src="/etc/designs/premierleague/images/shim.gif" alt=""/>
+                </a>
+
+              </td>
+
+              <td class="time">15:00</td>
+
+              <td class="clubs">
+                <a href="/en-gb/matchday/matches/2013-2014/epl.match-preview.html/arsenal-vs-southampton"><%= fixture[:home_team] %> v <%= fixture[:away_team] %></a>
+              </td>
+
+              <td class="location">
+                <a href="/en-gb/clubs/profile.stadium.html/arsenal">Emirates Stadium</a>
+              </td>
+
+              <td class="tickets">
+
+                &nbsp;
+
+              </td>
+
+              <td class="broadcasters" match="695020">
+                &nbsp;
+              </td>
+
+            </tr>
+        <% end %>
+      </table>
+  <% end %>
+
+</div>
+
+</body>
+
+</html>

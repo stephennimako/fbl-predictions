@@ -1,22 +1,9 @@
 Bundler.require :test
 
-require 'capybara/cucumber'
-require 'fbl/app'
+require 'model/user'
 
-Capybara.app = Fbl::App
+Capybara.app_host = "http://localhost:9291"
+Capybara.run_server = false
+Capybara.default_driver = :poltergeist
 
-Before do
-  @user = Fbl::User.create(username: "user1")
-  @user.password = "test1234"
-  @user.save
-end
-
-After do
-  Fbl::User.destroy
-end
-
-
-
-
-
-
+WebMock.allow_net_connect!

@@ -24,3 +24,11 @@ end
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
+
+Fbl::User.destroy
+
+@user = Fbl::User.create(username: "admin")
+@user.password = "admin"
+@user.save
+
+p Fbl::User.all

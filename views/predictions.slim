@@ -1,1 +1,9 @@
 h1 Submit your predictions
+
+
+ul.fixtures
+  - filtered_fixtures.each do |fixture|
+    li.fixture
+      img.home-team src="images/badges/desktop/#{fixture[:home_team]}.png" height="42" width="42"
+      img.away-team src="images/badges/desktop/#{fixture[:away_team]}.png" height="42" width="42"
+
