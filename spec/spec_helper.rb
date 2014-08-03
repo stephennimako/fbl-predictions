@@ -1,1 +1,1 @@
-Bundler.require :test
+Bundler.require
