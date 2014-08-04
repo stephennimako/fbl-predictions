@@ -1,0 +1,46 @@
+.team {
+    width: 64px;
+    height: 64px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.home-team {
+    position: relative;
+}
+
+.away-team {
+    position: relative;
+    margin-left: 150px;
+}
+
+.score {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    vertical-align: middle;
+}
+
+.home-score {
+    position: absolute;
+    left: 68px
+}
+
+.away-score {
+    position: absolute;
+    left: -74px
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@ gem 'rack-flash3', require: 'rack/flash'
 group :test do
   gem 'sinatra'
   gem 'cucumber'
-  gem 'capybara', require: ['capybara/poltergeist', 'capybara/cucumber']
+  gem 'capybara', require: %w(capybara/poltergeist capybara/cucumber)
   gem 'poltergeist'
   gem 'data_mapper'
   gem 'warden'

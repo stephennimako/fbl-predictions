@@ -25,11 +25,11 @@ Then(/^There should be (\d) fixture|fixtures involving a selected team$/) do |se
 
   page.all('.fixtures .fixture').each do |fixture_element|
 
-    home_team_image_path = fixture_element.find('.home-team')['src']
-    away_team_image_path = fixture_element.find('.away-team')['src']
+    home_team_image_style = fixture_element.all('.team')[0]['style']
+    away_team_image_style = fixture_element.all('.team')[1]['style']
 
-    home_team = home_team_image_path.match(/.*\/(.*)\..*/).captures.first
-    away_team = away_team_image_path.match(/.*\/(.*)\..*/).captures.first
+    home_team = home_team_image_style.match(/.*\/(.*)\..*/).captures.first
+    away_team = away_team_image_style.match(/.*\/(.*)\..*/).captures.first
 
     is_selected_fixture = Fbl::Fixtures::SELECTED_TEAMS.include?(home_team) || Fbl::Fixtures::SELECTED_TEAMS.include?(away_team)
 

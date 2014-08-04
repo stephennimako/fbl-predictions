@@ -1,9 +1,6 @@
 h1 Submit your predictions
 
-
-ul.fixtures
-  - filtered_fixtures.each do |fixture|
-    li.fixture
-      img.home-team src="images/badges/desktop/#{fixture[:home_team]}.png" height="42" width="42"
-      img.away-team src="images/badges/desktop/#{fixture[:away_team]}.png" height="42" width="42"
-
+ul.fixtures.row
+    -  filtered_fixtures.each do |fixture|
+        li.col-sm-6.col-md-4.col-lg-4.prediction data-home-team="#{fixture[:home_team]}" data-away-team="#{fixture[:away_team]}"
+          == slim :'partials/fixture', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
