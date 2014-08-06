@@ -1,7 +1,7 @@
 .fixture
   - teams.each_with_index do |team, index|
     - location = index == 0 ? 'home': 'away'
-    label class="#{location}-team team" style="background-image: url('/images/badges/#{team}.png"
-      select class="#{location}-score score" name="score"
+    label class="#{location}-team team" style="background-image: url('/images/badges/#{team}.png')"
+      select class="#{location}-score score" name="#{location}-score"
         - (0..9).each do |index|
           option value="#{index}" #{index}

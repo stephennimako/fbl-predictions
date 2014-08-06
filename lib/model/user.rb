@@ -1,6 +1,8 @@
 require 'bcrypt'
 
-DataMapper.setup(:default, "sqlite://#{Dir.pwd}/db.sqlite")
+#DataMapper.setup(:default, "sqlite://#{Dir.pwd}/db.sqlite")
+#DataMapper.setup(:default, 'postgres://user:password@hostname/database')
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://user:password@localhost/predictions")
 
 module Fbl
   class User

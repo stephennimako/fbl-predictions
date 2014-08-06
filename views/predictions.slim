@@ -2,5 +2,8 @@ h1 Submit your predictions
 
 ul.fixtures.row
     -  filtered_fixtures.each do |fixture|
-        li.col-sm-6.col-md-4.col-lg-4.prediction data-home-team="#{fixture[:home_team]}" data-away-team="#{fixture[:away_team]}"
+        li.prediction.col-sm-6.col-md-4.col-lg-4 data-home-team="#{fixture[:home_team]}" data-away-team="#{fixture[:away_team]}"
           == slim :'partials/fixture', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
+          select.goal-scorer name="goal-scorer"
+            - players(fixture[:home_team], fixture[:away_team]).each do |player|
+              option value="#{player}" #{player}
