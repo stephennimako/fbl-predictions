@@ -4,5 +4,5 @@
 .sass-cache
 *.sassc
 *.scssc
-.log
+*.log
 .downloads
