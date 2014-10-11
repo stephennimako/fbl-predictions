@@ -6,7 +6,7 @@ module Fbl
 
     use Warden::Manager do |config|
       config.serialize_into_session { |user| user.id }
-      config.serialize_from_session { |id| User.get(id) }
+      config.serialize_from_session { |id| User.find(id) }
 
       config.scope_defaults :default,
                             strategies: [:password],
@@ -24,7 +24,7 @@ module Fbl
       end
 
       def authenticate!
-        user = User.first(username: params['user']['username'])
+        user = User.where(username: params['user']['username']).first
 
         if user.nil?
           fail!("The username you entered does not exist.")

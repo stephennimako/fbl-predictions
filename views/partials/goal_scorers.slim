@@ -1,0 +1,6 @@
+select.goal-scorer name="goal-scorer"
+  - goal_scorers_by_team(teams).each do |goal_scorer_by_team|
+    - team = goal_scorer_by_team.keys.first
+    optgroup label="#{team}"
+    - goal_scorer_by_team[team].each do |goal_scorer|
+      option value="#{goal_scorer}" #{goal_scorer}

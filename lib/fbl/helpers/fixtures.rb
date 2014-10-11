@@ -2,8 +2,8 @@ require 'fbl/service/fixtures_service'
 
 module Fbl
   module Fixtures
-    SELECTED_TEAMS = ['West Ham', 'Chelsea', 'Arsenal', 'Man City', 'Man Utd', 'Liverpool', 'Spurs']
-    UNSELECTED_TEAMS = ['Everton', 'Swansea', 'Sunderland', 'Southampton', 'West Brom', 'Newcastle', 'Crystal Palace', 'Burnley', 'Hull', 'Leicester', 'Qpr', 'Aston Villa', 'Stoke']
+    SELECTED_TEAMS = ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man Utd', 'Spurs', 'West Ham']
+    UNSELECTED_TEAMS = ['Aston Villa', 'Burnley', 'Crystal Palace', 'Everton', 'Hull', 'Leicester', 'Newcastle', 'Qpr', 'Southampton', 'Stoke', 'Sunderland', 'Swansea', 'West Brom' ]
 
     def filtered_fixtures
       @fixtures ||= Fbl::Service::FixturesService.new(settings.premier_league_url).current_round
