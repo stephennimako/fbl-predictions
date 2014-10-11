@@ -12,6 +12,7 @@ $(document).ready(function () {
             prediction.home_team_score = parseInt($(this).find('.home-score option:selected').text());
             prediction.away_team_score = parseInt($(this).find('.away-score option:selected').text());
             prediction.goal_scorer = $(this).find('.goal-scorer option:selected').text();
+            prediction.additional_goal_scorer = $(this).find('.additional-goal-scorer option:selected').text();
 
             predictions.push(prediction);
 

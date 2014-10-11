@@ -32,7 +32,7 @@
     left: -74px
 }
 
-.goal-scorer {
+.goal-scorer, .additional-goal-scorer {
     display: block;
     width: 220px;
 }

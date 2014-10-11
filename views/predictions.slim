@@ -5,7 +5,7 @@ form.predictions-form
     -  filtered_fixtures.each do |fixture|
       li.prediction.col-sm-6.col-md-4.col-lg-4 data-kick-off="#{fixture[:kick_off]}" data-home-team="#{fixture[:home_team]}" data-away-team="#{fixture[:away_team]}"
         == slim :'partials/fixture', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
-        == slim :'partials/goal_scorers', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
+        == slim :'partials/goal_scorers', locals: {teams: [fixture[:home_team], fixture[:away_team]], is_bonus_fixture: bonus_fixture?(fixture[:home_team], fixture[:away_team])}
   button.submit Submit
 
 .alert.alert-success.hidden

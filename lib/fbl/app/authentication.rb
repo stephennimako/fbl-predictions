@@ -60,5 +60,12 @@ module Fbl
       session[:return_to] = env['warden.options'][:attempted_path]
       redirect '/auth/login'
     end
+
+    private
+
+    def authenticate_user
+      env['warden'].authenticate!
+      @current_user = env['warden'].user
+    end
   end
 end

@@ -1,6 +1,16 @@
-select.goal-scorer name="goal-scorer"
-  - goal_scorers_by_team(teams).each do |goal_scorer_by_team|
-    - team = goal_scorer_by_team.keys.first
-    optgroup label="#{team}"
-    - goal_scorer_by_team[team].each do |goal_scorer|
-      option value="#{goal_scorer}" #{goal_scorer}
+- if is_bonus_fixture
+  - ['goal-scorer', 'additional-goal-scorer'].each_with_index do |goal_scorer_type, index|
+    select class="#{goal_scorer_type}" name="#{goal_scorer_type}"
+      - goal_scorers_by_team([teams[index]]).each do |goal_scorer_by_team|
+        - team = goal_scorer_by_team.keys.first
+        optgroup label="#{team}"
+        - goal_scorer_by_team[team].each do |goal_scorer|
+          option value="#{goal_scorer}" #{goal_scorer}
+
+- else
+  select.goal-scorer name="goal-scorer"
+    - goal_scorers_by_team(teams).each do |goal_scorer_by_team|
+      - team = goal_scorer_by_team.keys.first
+      optgroup label="#{team}"
+      - goal_scorer_by_team[team].each do |goal_scorer|
+        option value="#{goal_scorer}" #{goal_scorer}

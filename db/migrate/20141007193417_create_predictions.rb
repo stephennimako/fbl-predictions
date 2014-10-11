@@ -9,6 +9,7 @@ class CreatePredictions < ActiveRecord::Migration
       t.integer :home_team_score
       t.integer :away_team_score
       t.string :goal_scorer
+      t.string :additional_goal_scorer
       t.timestamps
     end
   end

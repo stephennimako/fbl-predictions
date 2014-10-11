@@ -2,10 +2,12 @@ require 'json'
 require 'model/prediction'
 require 'fbl/helpers/fixtures'
 require 'fbl/helpers/goal_scorers'
+require 'fbl/helpers/prediction_helper'
+
 module Fbl
   class App < Sinatra::Base
 
-    helpers Fbl::Fixtures, Fbl::GoalScorers
+    helpers Fbl::Fixtures, Fbl::GoalScorers, Fbl::PredictionHelper
 
     get '/' do
       authenticate_user
@@ -16,16 +18,12 @@ module Fbl
       content_type :json
 
       predictions = JSON.parse(request.body.read)
-      Prediction.create(predictions)
+
+      predictions.each do |prediction|
+        save_prediction(prediction)
+      end
 
       {success: true}.to_json
-    end
-
-    private
-
-    def authenticate_user
-      env['warden'].authenticate!
-      @current_user = env['warden'].user
     end
 
   end

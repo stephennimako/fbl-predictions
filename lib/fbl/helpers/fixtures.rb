@@ -11,5 +11,9 @@ module Fbl
         ([fixture[:home_team], fixture[:away_team]] & SELECTED_TEAMS).empty?
       end
     end
+
+    def bonus_fixture? home_team, away_team
+      ([home_team, away_team] & SELECTED_TEAMS).length == 2
+    end
   end
 end

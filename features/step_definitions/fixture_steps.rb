@@ -6,9 +6,9 @@ Given(/^There is a fixture involving (none|one|two) of the selected teams in the
 
   @fixtures ||= {}
   @fixtures[date] ||= []
-  home_team = ['one', 'two'].include?(number_of_selected_teams) ? Fbl::Fixtures::SELECTED_TEAMS.sample : Fbl::Fixtures::UNSELECTED_TEAMS.sample
-  away_team = ['two'].include?(number_of_selected_teams) ? Fbl::Fixtures::SELECTED_TEAMS.sample : Fbl::Fixtures::UNSELECTED_TEAMS.sample
-  @fixtures[date] << {home_team: home_team, away_team: away_team}
+  @home_team = ['one', 'two'].include?(number_of_selected_teams) ? Fbl::Fixtures::SELECTED_TEAMS.sample : Fbl::Fixtures::UNSELECTED_TEAMS.sample
+  @away_team = ['two'].include?(number_of_selected_teams) ? Fbl::Fixtures::SELECTED_TEAMS.sample : Fbl::Fixtures::UNSELECTED_TEAMS.sample
+  @fixtures[date] << {home_team: @home_team, away_team: @away_team}
 
   template = Tilt::ERBTemplate.new File.new 'features/responses/fixtures.html.erb'
   response = template.render(nil, {:fixtures_by_date => @fixtures})
