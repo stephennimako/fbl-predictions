@@ -12,8 +12,8 @@ module Fbl
       end
     end
 
-    def bonus_fixture? home_team, away_team
-      ([home_team, away_team] & SELECTED_TEAMS).length == 2
+    def bonus_fixture? teams
+      (teams & SELECTED_TEAMS).length == 2
     end
   end
 end

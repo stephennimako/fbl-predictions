@@ -22,10 +22,6 @@ describe Fbl::GoalScorers do
       Player.create(all_goal_scorers)
     end
 
-    after :all do
-      Player.destroy_all
-    end
-
     it 'returns goal scorers grouped by given teams' do
       expected_goal_scorers_by_team = [
           {'Arsenal' => ['Theo Walcott', 'Mesut Özil']},

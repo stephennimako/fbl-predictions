@@ -28,7 +28,7 @@
 
               </td>
 
-              <td class="time">15:00</td>
+              <td class="time"><%=fixture[:kick_off_time].nil? ? '15:00' : fixture[:kick_off_time] %></td>
 
               <td class="clubs">
                 <a href="/en-gb/matchday/matches/2013-2014/epl.match-preview.html/arsenal-vs-southampton"><%= fixture[:home_team] %> v <%= fixture[:away_team] %></a>

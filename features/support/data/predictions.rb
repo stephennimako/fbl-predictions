@@ -1,5 +1,5 @@
 require 'model/prediction'
 
-After do
+Before do
   Prediction.destroy_all
 end

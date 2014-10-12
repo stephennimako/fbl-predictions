@@ -2,13 +2,24 @@ require 'fbl/helpers/fixtures'
 
 Given(/^There is a fixture involving (none|one|two) of the selected teams in the (current|next) round of fixtures$/) do |number_of_selected_teams, round|
 
-  date = round == 'current' ? Date.today.next_day.strftime('%A %d %B %Y') : Date.today.next_day(3).strftime('%A %d %B %Y')
+  @date = round == 'current' ? Date.today.next_day.strftime('%A %d %B %Y') : Date.today.next_day(3).strftime('%A %d %B %Y')
 
   @fixtures ||= {}
-  @fixtures[date] ||= []
-  @home_team = ['one', 'two'].include?(number_of_selected_teams) ? Fbl::Fixtures::SELECTED_TEAMS.sample : Fbl::Fixtures::UNSELECTED_TEAMS.sample
-  @away_team = ['two'].include?(number_of_selected_teams) ? Fbl::Fixtures::SELECTED_TEAMS.sample : Fbl::Fixtures::UNSELECTED_TEAMS.sample
-  @fixtures[date] << {home_team: @home_team, away_team: @away_team}
+  @fixtures[@date] ||= []
+
+  teams = case number_of_selected_teams
+            when 'one'
+              [Fbl::Fixtures::SELECTED_TEAMS.sample, Fbl::Fixtures::UNSELECTED_TEAMS.sample]
+            when 'two'
+              Fbl::Fixtures::SELECTED_TEAMS.sample 2
+            else
+              Fbl::Fixtures::UNSELECTED_TEAMS.sample 2
+          end
+
+  @home_team = teams[0]
+  @away_team = teams[1]
+  @kick_off_time = '15:00'
+  @fixtures[@date] << {home_team: @home_team, away_team: @away_team, kick_off_time: @kick_off_time}
 
   template = Tilt::ERBTemplate.new File.new 'features/responses/fixtures.html.erb'
   response = template.render(nil, {:fixtures_by_date => @fixtures})

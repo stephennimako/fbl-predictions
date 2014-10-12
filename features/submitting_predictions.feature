@@ -9,5 +9,11 @@ Feature: Submitting predictions
     Then I should not see a success notification
   Examples:
     | fixture_type | selected_teams |
-    | standard     |      one       |
-    | bonus        |      two       |
+    | standard     | one            |
+    | bonus        | two            |
+
+  Scenario: The user must make unique prediction
+    Given There is a fixture involving one of the selected teams in the current round of fixtures
+    When I log in and visit the predictions page
+    And I submit the same prediction made by another user
+    Then I should see a danger notification

@@ -12,10 +12,11 @@ $(document).ready(function () {
             prediction.home_team_score = parseInt($(this).find('.home-score option:selected').text());
             prediction.away_team_score = parseInt($(this).find('.away-score option:selected').text());
             prediction.goal_scorer = $(this).find('.goal-scorer option:selected').text();
-            prediction.additional_goal_scorer = $(this).find('.additional-goal-scorer option:selected').text();
-
+            additional_goal_scorer = $(this).find('.additional-goal-scorer option:selected').text()
+            if(additional_goal_scorer != ''){
+                prediction.additional_goal_scorer = additional_goal_scorer;
+            }
             predictions.push(prediction);
-
         });
 
         predictions_json = JSON.stringify(predictions);
@@ -29,9 +30,12 @@ $(document).ready(function () {
                 if (data.success) {
                     $('.alert-success').removeClass('hidden');
                 }
+                else {
+                    $('.alert-danger').removeClass('hidden');
+                }
             },
             error: function (data) {
-//                          display success message look at bootstrap
+//
             },
             complete: function () {
 
@@ -41,5 +45,9 @@ $(document).ready(function () {
 
     $('#close-success').click(function (event) {
         $('.alert-success').addClass('hidden');
+    });
+
+    $('#close-danger').click(function (event) {
+        $('.alert-danger').addClass('hidden');
     });
 });

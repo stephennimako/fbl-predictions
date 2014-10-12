@@ -11,5 +11,13 @@ module Fbl
         Prediction.create(prediction)
       end
     end
+
+    def invalid_prediction_indexes user_id, predictions
+      indexes = []
+      predictions.each_with_index do |prediction, index|
+        indexes << index if Prediction.where(prediction).where.not(user_id: user_id).count > 0
+      end
+      indexes
+    end
   end
 end

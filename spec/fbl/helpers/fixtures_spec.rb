@@ -48,19 +48,19 @@ describe Fbl::Fixtures do
   context '#bonus_fixture?' do
     context 'no selected teams' do
       it 'return false' do
-        expect(subject.bonus_fixture?(described_class::UNSELECTED_TEAMS.sample, described_class::UNSELECTED_TEAMS.sample)).to eq(false)
+        expect(subject.bonus_fixture?(described_class::UNSELECTED_TEAMS.sample 2)).to eq(false)
       end
     end
 
     context 'one selected team' do
       it 'return false' do
-        expect(subject.bonus_fixture?(described_class::SELECTED_TEAMS.sample, described_class::UNSELECTED_TEAMS.sample)).to eq(false)
+        expect(subject.bonus_fixture?([described_class::SELECTED_TEAMS.sample, described_class::UNSELECTED_TEAMS.sample])).to eq(false)
       end
     end
 
     context 'two selected teams' do
       it 'return true' do
-        expect(subject.bonus_fixture?(described_class::SELECTED_TEAMS.sample, described_class::SELECTED_TEAMS.sample)).to eq(true)
+        expect(subject.bonus_fixture?(described_class::SELECTED_TEAMS.sample 2)).to eq(true)
       end
     end
   end
