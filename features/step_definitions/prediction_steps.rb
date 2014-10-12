@@ -13,8 +13,8 @@ Then(/^I should (see|not see) a (success|danger) notification$/) do |visible, no
   expect(page).not_to have_css(".alert-#{notification_type}") if visible == 'not see'
 end
 
-When(/^I close the success notification$/) do
-  click_button('close-success')
+When(/^I close the (success|danger) notification$/) do |notification_type|
+  click_button("close-#{notification_type}")
 end
 
 When(/^I submit the same prediction made by another user$/) do

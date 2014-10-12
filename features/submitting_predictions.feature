@@ -17,3 +17,5 @@ Feature: Submitting predictions
     When I log in and visit the predictions page
     And I submit the same prediction made by another user
     Then I should see a danger notification
+    When I close the danger notification
+    Then I should not see a danger notification
