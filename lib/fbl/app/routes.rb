@@ -19,15 +19,19 @@ module Fbl
       content_type :json
 
       predictions = JSON.parse(request.body.read)
-      indexes = invalid_prediction_indexes(@current_user.id, predictions)
+      indexes = invalid_prediction_indexes(current_user.id, predictions)
       if indexes.empty?
         predictions.each do |prediction|
-          save_prediction(prediction.merge user_id: @current_user.id)
+          save_prediction(prediction.merge user_id: current_user.id)
         end
         {success: true}.to_json
       else
         {success: false, invalid_predictions_indexes: indexes}.to_json
       end
+    end
+
+    def current_user
+      @current_user
     end
 
   end

@@ -31,4 +31,5 @@ group :test do
   gem 'mirage'
   gem 'faraday'
   gem 'webmock'
+  gem 'rack-test'
 end

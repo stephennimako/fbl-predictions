@@ -198,6 +198,7 @@ DEPENDENCIES
   pg
   poltergeist
   rack-flash3
+  rack-test
   rake
   rspec
   selenium-webdriver
