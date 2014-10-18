@@ -112,4 +112,74 @@ describe Fbl::PredictionHelper do
     end
   end
 
+  context '#opposing_users_predictions' do
+    let(:user_id) { 1 }
+    let(:user_id_two) { 2 }
+    let(:user_id_three) { 3 }
+    let(:home_team_score) { 2 }
+    let(:away_team_score) { 1 }
+    let(:home_team) { 'Arsenal' }
+    let(:away_team) { 'Chelsea' }
+    let(:another_away_team) { 'Man Utd' }
+    let(:goal_scorer) { 'Theo Walcott' }
+    let(:kick_off) { '2014-10-12 15:00:00' }
+
+    context 'other users have not made predictions' do
+
+      it 'returns no predictions' do
+        expect(subject.opposing_users_predictions home_team, away_team, 1).to eq([])
+      end
+    end
+
+    context 'predictions been made for a different game' do
+      before do
+        @prediction = Prediction.create({home_team: home_team, away_team: another_away_team, goal_scorer: goal_scorer,
+                                         kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id_two})
+      end
+
+      it 'returns no predictions' do
+        expect(subject.opposing_users_predictions home_team, away_team, user_id).to eq([])
+      end
+    end
+
+    context 'other user has made predictions' do
+      before do
+        @prediction = Prediction.create({home_team: home_team, away_team: away_team, goal_scorer: goal_scorer,
+                                         kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id_two})
+      end
+
+      it 'returns predictions' do
+        expect(subject.opposing_users_predictions home_team, away_team, user_id).to eq([@prediction])
+      end
+    end
+
+    context 'multiple users have made predictions' do
+      before do
+        @prediction_one = Prediction.create({home_team: home_team, away_team: away_team, goal_scorer: goal_scorer,
+                                             kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id_two})
+        @prediction_two = Prediction.create({home_team: home_team, away_team: away_team, goal_scorer: goal_scorer,
+                                             kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id_three})
+      end
+
+      it 'returns predictions' do
+        expect(subject.opposing_users_predictions home_team, away_team, user_id).to eq([@prediction_one, @prediction_two])
+      end
+    end
+
+    context 'multiple users including provided user' do
+      before do
+        @prediction_one = Prediction.create({home_team: home_team, away_team: away_team, goal_scorer: goal_scorer,
+                                             kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id_two})
+        @prediction_two = Prediction.create({home_team: home_team, away_team: away_team, goal_scorer: goal_scorer,
+                                             kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id_three})
+        Prediction.create({home_team: home_team, away_team: away_team, goal_scorer: goal_scorer,
+                           kick_off: kick_off, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user_id})
+      end
+
+      it 'returns other users predictions' do
+        expect(subject.opposing_users_predictions home_team, away_team, user_id).to eq([@prediction_one, @prediction_two])
+      end
+    end
+  end
+
 end

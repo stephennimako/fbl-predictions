@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20141007200054) do
 
   create_table "users", force: true do |t|
     t.string "username"
+    t.string "display_name"
     t.string "password"
   end
 

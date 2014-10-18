@@ -1,4 +1,5 @@
 require 'model/prediction'
+require 'model/user'
 require 'active_support/core_ext/hash'
 
 module Fbl
@@ -18,6 +19,15 @@ module Fbl
         indexes << index if Prediction.where(prediction).where.not(user_id: user_id).count > 0
       end
       indexes
+    end
+
+    def opposing_users_predictions home_team, away_team, user_id
+      opposition_predictions = []
+      predictions = Prediction.where(home_team: home_team, away_team: away_team).where.not(user_id:user_id)
+      predictions.each do |prediction|
+        opposition_predictions << prediction
+      end
+      opposition_predictions
     end
   end
 end

@@ -1,4 +1,4 @@
-- if is_bonus_fixture
+- if bonus_fixture?(teams)
   - ['goal-scorer', 'additional-goal-scorer'].each_with_index do |goal_scorer_type, index|
     select class="#{goal_scorer_type}" name="#{goal_scorer_type}"
       - goal_scorers_by_team([teams[index]]).each do |goal_scorer_by_team|

@@ -19,7 +19,7 @@ Given(/^There is a fixture involving (none|one|two) of the selected teams in the
   @home_team = teams[0]
   @away_team = teams[1]
   @kick_off_time = '15:00'
-  @fixtures[@date] << {home_team: @home_team, away_team: @away_team, kick_off_time: @kick_off_time}
+  @fixtures[@date] << {home_team: @home_team, away_team: @away_team, kick_off_time: @kick_off_time, kick_off: "#{@date} #{@kick_off_time}"}
 
   template = Tilt::ERBTemplate.new File.new 'features/responses/fixtures.html.erb'
   response = template.render(nil, {:fixtures_by_date => @fixtures})
