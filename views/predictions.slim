@@ -2,7 +2,8 @@ h1 Submit your predictions
 
 form.predictions-form
   ul.fixtures.row
-    -  filtered_fixtures.each do |fixture|
+    -  filtered_fixtures.each_with_index do |fixture, index|
+      == slim :'partials/clearfix', locals: {index: index}
       li.prediction.col-sm-6.col-md-4.col-lg-4 data-kick-off="#{fixture[:kick_off]}" data-home-team="#{fixture[:home_team]}" data-away-team="#{fixture[:away_team]}"
         == slim :'partials/fixture', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
         == slim :'partials/goal_scorers', locals: {teams: [fixture[:home_team], fixture[:away_team]]}

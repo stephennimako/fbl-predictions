@@ -54,7 +54,7 @@ When(/^user '(.*)' has submitted predictions for this rounds fixtures$/) do |use
         goal_scorer: goal_scorer,
         home_team_score: home_team_score, away_team_score: away_team_score, user_id: user.id
     }
-    prediction_hash.merge additional_goal_scorer: additional_goal_scorer if additional_goal_scorer
+    prediction_hash.merge!(additional_goal_scorer: additional_goal_scorer) if bonus_fixture?([home_team, away_team])
     prediction = Prediction.create(prediction_hash)
 
     @predictions ||= {}
@@ -74,7 +74,7 @@ end
 Then(/^I should see the score and goal scorers predicted by '(.*)'$/) do |username|
   @predictions[username].each do |prediction|
     within("#opposition-predictions-#{prediction.id}") do
-      expect(page).to have_content("#{prediction.home_team_score} V #{prediction.away_team_score}")
+      expect(page).to have_content("#{prediction.home_team_score} - #{prediction.away_team_score}")
       expect(page).to have_content(prediction.goal_scorer)
       expect(page).to have_content(prediction.additional_goal_scorer) if Fbl::Fixtures.bonus_fixture? [prediction.home_team, prediction.away_team]
     end

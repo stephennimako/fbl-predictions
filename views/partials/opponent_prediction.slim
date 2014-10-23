@@ -2,11 +2,11 @@
   .accordion id="opposition-predictions-#{prediction.id}"
     .accordion-group
       .accordion-heading
-        a.accordion-toggle data-toggle="collapse" data-parent="#opposition-predictions-#{prediction.id}" href="#collapse#{prediction.id}"
+        a.lead.accordion-toggle data-toggle="collapse" data-parent="#opposition-predictions-#{prediction.id}" href="#collapse#{prediction.id}"
           | #{prediction.user.display_name}
       .accordion-body.collapse id="collapse#{prediction.id}"
         .accordion-inner
-          p #{prediction.home_team_score} V #{prediction.away_team_score}
-          p #{prediction.goal_scorer}
+          p.lead #{prediction.home_team_score} - #{prediction.away_team_score}
+          p.lead #{prediction.goal_scorer}
           - if bonus_fixture?([home_team, away_team])
-            p #{prediction.additional_goal_scorer}
+            p.lead #{prediction.additional_goal_scorer}
