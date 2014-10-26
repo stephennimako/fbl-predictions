@@ -1,3 +1,5 @@
+require 'model/fixture'
+
 module Fbl
   module Service
     class FixturesService
@@ -7,6 +9,14 @@ module Fbl
       end
 
       def current_round
+        fixtures = current_fixtures
+        if fixtures.length == 0
+          Fixture.create(retrieve_new_fixtures)
+        end
+        current_fixtures.map { |fixture| fixture.as_json.slice('home_team', 'away_team', 'kick_off').symbolize_keys }
+      end
+
+      def retrieve_new_fixtures
         page = Nokogiri::HTML(Faraday.get("#{@base_uri}/en-gb/matchday/matches.html?paramClubId=ALL&paramComp_8=true&view=.dateSeason").body)
 
         fixtures = []
@@ -36,6 +46,11 @@ module Fbl
         end
         fixtures
       end
+
+      def current_fixtures
+        Fixture.where('kick_off > ?', Time.now.strftime("%F %T"))
+      end
+
     end
   end
 end

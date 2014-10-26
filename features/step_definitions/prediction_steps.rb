@@ -5,8 +5,9 @@ When(/^I submit a valid (standard|bonus) prediction$/) do |fixture_type|
   within('.prediction:first-of-type') do
     select(2, :from => 'home-score')
     select(1, :from => 'away-score')
-    select("#{@home_team} player 0", :from => 'goal-scorer')
-    select("#{@away_team} player 0", :from => 'additional-goal-scorer') if fixture_type == 'bonus'
+
+    first('.goal-scorer').select_option
+    first('.additional-goal-scorer').select_option if fixture_type == 'bonus'
   end
   click_button('Submit')
 end
@@ -21,14 +22,14 @@ When(/^I close the (success|danger) notification$/) do |notification_type|
 end
 
 When(/^I submit the same prediction made by another user$/) do
+  fixture = Fixture.first
+
   home_team_score = 2
   away_team_score = 1
-  goal_scorer = "#{@home_team} player 0"
+  goal_scorer = "#{fixture.home_team} player 0"
 
-  Prediction.create({
-                        home_team: @home_team, away_team: @away_team, kick_off: "#{@date} #{@kick_off_time}",
-                        goal_scorer: goal_scorer, home_team_score: home_team_score, away_team_score: away_team_score, user_id: @user2.id
-                    })
+  Prediction.create({goal_scorer: goal_scorer, home_team_score: home_team_score, away_team_score: away_team_score, user_id: @user2.id, fixture_id: fixture.id})
+
   within('.prediction:first-of-type') do
     select(home_team_score, :from => 'home-score')
     select(away_team_score, :from => 'away-score')
@@ -40,20 +41,16 @@ end
 When(/^user '(.*)' has submitted predictions for this rounds fixtures$/) do |username|
   user = User.create({display_name: username})
 
-  @fixtures.values.flatten.each do |fixture|
+  Fixture.where('kick_off > ?', Time.now.strftime("%F %T")).each do |fixture|
 
     home_team_score = rand(9)
     away_team_score = rand(9)
-    home_team = fixture[:home_team]
-    away_team = fixture[:away_team]
+    home_team = fixture.home_team
+    away_team = fixture.away_team
     goal_scorer = "#{home_team} player #{rand(9)}"
     additional_goal_scorer = "#{away_team} player #{rand(9)}" if bonus_fixture?([home_team, away_team])
 
-    prediction_hash = {
-        home_team: home_team, away_team: away_team, kick_off: fixture[:kick_off],
-        goal_scorer: goal_scorer,
-        home_team_score: home_team_score, away_team_score: away_team_score, user_id: user.id
-    }
+    prediction_hash = {goal_scorer: goal_scorer, home_team_score: home_team_score, away_team_score: away_team_score, user_id: user.id, fixture_id: fixture.id}
     prediction_hash.merge!(additional_goal_scorer: additional_goal_scorer) if bonus_fixture?([home_team, away_team])
     prediction = Prediction.create(prediction_hash)
 
@@ -73,10 +70,11 @@ end
 
 Then(/^I should see the score and goal scorers predicted by '(.*)'$/) do |username|
   @predictions[username].each do |prediction|
+    fixture = Fixture.find(prediction.fixture_id)
     within("#opposition-predictions-#{prediction.id}") do
       expect(page).to have_content("#{prediction.home_team_score} - #{prediction.away_team_score}")
       expect(page).to have_content(prediction.goal_scorer)
-      expect(page).to have_content(prediction.additional_goal_scorer) if Fbl::Fixtures.bonus_fixture? [prediction.home_team, prediction.away_team]
+      expect(page).to have_content(prediction.additional_goal_scorer) if Fbl::Fixtures.bonus_fixture? [fixture.home_team, fixture.away_team]
     end
   end
 end

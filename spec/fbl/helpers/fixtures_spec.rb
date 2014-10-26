@@ -1,5 +1,5 @@
-require 'fbl/helpers/fixtures'
 require 'spec_helper'
+require 'fbl/helpers/fixtures'
 
 describe Fbl::Fixtures do
   let(:subject) { Object.new.extend(described_class) }

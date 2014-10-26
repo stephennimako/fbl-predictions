@@ -3,9 +3,7 @@ class CreatePredictions < ActiveRecord::Migration
     create_table :predictions do |t|
 
       t.belongs_to :user
-      t.datetime :kick_off
-      t.string :home_team
-      t.string :away_team
+      t.belongs_to :fixture
       t.integer :home_team_score
       t.integer :away_team_score
       t.string :goal_scorer

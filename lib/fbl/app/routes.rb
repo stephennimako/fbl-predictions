@@ -3,6 +3,7 @@ require 'model/prediction'
 require 'fbl/helpers/fixtures'
 require 'fbl/helpers/goal_scorers'
 require 'fbl/helpers/prediction_helper'
+require 'active_support/core_ext/hash'
 
 module Fbl
   class App < Sinatra::Base

@@ -13,10 +13,6 @@ describe Fbl::GoalScorers do
     let(:man_utd_goal_scorers) { [{name: 'Juan Mata', team: 'Man Utd'}, {name: ' Wayne Rooney', team: 'Man Utd'}] }
     let(:all_goal_scorers) {arsenal_goal_scorers + chelsea_goal_scorers + man_utd_goal_scorers}
 
-    before :all do
-      establish_connection
-    end
-
     before do
       Player.destroy_all
       Player.create(all_goal_scorers)

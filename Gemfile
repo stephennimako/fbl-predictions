@@ -32,4 +32,5 @@ group :test do
   gem 'faraday'
   gem 'webmock'
   gem 'rack-test'
+  gem 'timecop'
 end
