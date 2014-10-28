@@ -4,4 +4,4 @@
     label class="#{location}-team team" style="background-image: url('/images/badges/#{team}.png')"
       select class="#{location}-score score" name="#{location}-score"
         - (0..9).each do |index|
-          option value="#{index}" #{index}
+          option value="#{index}" selected=("selected" if scores["#{location}_team_score".to_sym] == index) #{index}

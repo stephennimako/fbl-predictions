@@ -5,8 +5,9 @@ form.predictions-form
     -  filtered_fixtures.each_with_index do |fixture, index|
       == slim :'partials/clearfix', locals: {index: index}
       li.prediction.col-sm-6.col-md-4.col-lg-4 data-kick-off="#{fixture[:kick_off]}" data-home-team="#{fixture[:home_team]}" data-away-team="#{fixture[:away_team]}"
-        == slim :'partials/fixture', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
-        == slim :'partials/goal_scorers', locals: {teams: [fixture[:home_team], fixture[:away_team]]}
+        - prediction = current_users_prediction(fixture, @current_user.id)
+        == slim :'partials/fixture', locals: {teams: [fixture[:home_team], fixture[:away_team]], scores: {home_team_score: prediction.nil? ? false : prediction.home_team_score, away_team_score: prediction.nil? ?  false : prediction.away_team_score}}
+        == slim :'partials/goal_scorers', locals: {teams: [fixture[:home_team], fixture[:away_team]], goal_scorers: {goal_scorer: prediction.nil? ?  false : prediction.goal_scorer, additional_goal_scorer: prediction.nil? ? false : prediction.additional_goal_scorer}}
         == slim :'partials/opponent_prediction', locals: {fixture: fixture}
   button.submit Submit
 

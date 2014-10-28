@@ -86,3 +86,21 @@ When(/^I click on the accordions to see predictions made by '(.*)'$/) do |userna
     end
   end
 end
+
+Then(/^I should see my prediction$/) do
+  prediction = Prediction.first
+  fixture = Fixture.first
+  within('.prediction') do
+    expect(page.find('.home-score').value.to_i).to eq(prediction.home_team_score)
+    expect(page.find('.away-score').value.to_i).to eq(prediction.away_team_score)
+    expect(page.find('.goal-scorer').value).to eq(prediction.goal_scorer)
+    expect(page.find('.additional-goal-scorer').value).to eq(prediction.additional_goal_scorer) if bonus_fixture?([fixture.home_team, fixture.away_team])
+  end
+end
+
+When(/^I have saved my prediction for the fixture$/) do
+  fixture = Fixture.first
+  prediction = {home_team_score: 3, away_team_score: 2, goal_scorer: "#{fixture.home_team} player 1", fixture_id: fixture.id, user_id: @user.id}
+  prediction.merge!(additional_goal_scorer: "#{fixture.away_team} player 1") if bonus_fixture?([fixture.home_team, fixture.away_team])
+  Prediction.create(prediction)
+end

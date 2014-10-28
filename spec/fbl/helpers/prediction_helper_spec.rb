@@ -15,12 +15,12 @@ describe Fbl::PredictionHelper do
 
   let(:subject) { Object.new.extend(described_class) }
 
-  let(:kick_off) {'2014-10-12 15:00:00'}
-  let(:home_team) {'Arsenal'}
-  let(:away_team) {'Chelsea'}
+  let(:kick_off) { '2014-10-12 15:00:00' }
+  let(:home_team) { 'Arsenal' }
+  let(:away_team) { 'Chelsea' }
   let(:home_team_score) { 2 }
   let(:away_team_score) { 1 }
-  let(:goal_scorer) {'Theo Walcott'}
+  let(:goal_scorer) { 'Theo Walcott' }
   let(:user_id_one) { 1 }
   let(:user_id_two) { 2 }
   let(:user_id_three) { 3 }
@@ -175,4 +175,18 @@ describe Fbl::PredictionHelper do
     end
   end
 
+  context '#current_users_prediction' do
+    context 'prediction exists' do
+      it 'returns prediction' do
+        saved_prediction = Prediction.create(prediction)
+        expect(subject.current_users_prediction({home_team: home_team, away_team: away_team, kick_off: kick_off}, user_id_one)).to eq(saved_prediction)
+      end
+    end
+
+    context 'prediction does not exists' do
+      it 'returns nil' do
+        expect(subject.current_users_prediction({home_team: home_team, away_team: away_team, kick_off: kick_off}, user_id_one)).to be_nil
+      end
+    end
+  end
 end

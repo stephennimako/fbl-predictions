@@ -34,6 +34,11 @@ module Fbl
       opposition_predictions
     end
 
+    def current_users_prediction fixture, user_id
+      fixture = Fixture.find_by(fixture)
+      Prediction.find_by(fixture_id: fixture.id, user_id: user_id)
+    end
+
     private
 
     def find_fixture(prediction_hash)

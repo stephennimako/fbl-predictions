@@ -5,7 +5,7 @@
         - team = goal_scorer_by_team.keys.first
         optgroup label="#{team}"
         - goal_scorer_by_team[team].each do |goal_scorer|
-          option value="#{goal_scorer}" #{goal_scorer}
+          option value="#{goal_scorer}" selected=("selected" if goal_scorers[goal_scorer_type.gsub('-', '_').to_sym] == goal_scorer) #{goal_scorer}
 
 - else
   select.goal-scorer name="goal-scorer"
@@ -13,4 +13,4 @@
       - team = goal_scorer_by_team.keys.first
       optgroup label="#{team}"
       - goal_scorer_by_team[team].each do |goal_scorer|
-        option value="#{goal_scorer}" #{goal_scorer}
+        option value="#{goal_scorer}" selected=("selected" if goal_scorers[:goal_scorer] == goal_scorer) #{goal_scorer}
